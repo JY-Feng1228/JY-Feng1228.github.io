@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-09-15T18:06:58.308Z",
+  "scope": "Renderer state integration in a Node VM with the unchanged source, mocked DOM and IPC; no real model/API or Electron execution.",
+  "syntheticData": true,
+  "sourceHashes": {
+    "src/renderer/app.js": "f13724561db79fbb08c59833db7509775c53949c2b0779b8c0fe32bb25ff5e0b",
+    "src/renderer/questions.js": "1de88e8889c22a3aba366a78399ef2d0096bfef5c21bce09ba70988dcc9dfb53",
+    "src/shared/answer-memory.js": "9cbaa6ea96818503bbdfec6c8be7a381730e511c65ccd7d1a5980e832aed56e0"
+  },
+  "tests": [
+    {
+      "name": "same_jd_preserves_inflight_state",
+      "status": "passed",
+      "evidence": "Same-JD save preserves request ID, boundary, completed draft, history and the in-progress answer; cancellation count stays zero."
+    },
+    {
+      "name": "different_jd_resets_answer_context_only",
+      "status": "passed",
+      "evidence": "JD B cancels the old request and clears answer state while retaining historical transcript and reusable background."
+    },
+    {
+      "name": "stale_nonempty_delta_ignored_after_switch",
+      "status": "passed",
+      "evidence": "Old start/question/nonempty delta/done/error events cannot repopulate answer, question, or draft state."
+    },
+    {
+      "name": "current_nonempty_delta_positive_control",
+      "status": "passed",
+      "evidence": "The same callback path accepts and renders a nonempty delta for the active request; the rejection test is not passing because delivery is disconnected."
+    },
+    {
+      "name": "stale_interleaving_does_not_replace_new_answer",
+      "status": "passed",
+      "evidence": "Interleaving stale events with an active new answer neither replaces the answer nor ends the new generation; only the valid completion becomes a draft."
+    },
+    {
+      "name": "same_jd_preserves_completed_context",
+      "status": "passed",
+      "evidence": "Saving the same current JD preserves the completed answer, one current draft, history, request ID and context boundary."
+    }
+  ],
+  "status": "passed",
+  "summary": {
+    "cases": 6,
+    "passed": 6,
+    "failed": 0,
+    "mockedGenerateRequests": 3,
+    "mockedSettingsSaves": 3,
+    "mockedCancelCalls": 1,
+    "externalApiCalls": 0,
+    "applicationSourceFilesUnchanged": true
+  },
+  "performedBy": "Codex, during portfolio evidence review on 2026-09-16 (Asia/Shanghai)."
+}

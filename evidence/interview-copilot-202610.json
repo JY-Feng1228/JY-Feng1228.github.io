@@ -1,0 +1,68 @@
+{
+  "title": "面试助手：2026 年 10 月公开评测摘要",
+  "checkedAt": "2026-10-16",
+  "scope": "核对本机保存的交付记录与盲评结论后整理的公开摘要，不是完整原始评测集。本文仅描述固定题集上的模型生成与核查实验，不代表真人表达效果或正式面试收益。",
+  "roles": {
+    "owner": "确定评测目标、通过标准和是否采用方案",
+    "Codex": "实现、运行评测并整理匿名盲评材料",
+    "Claude": "在揭盲前评分并复核结果"
+  },
+  "promptComparison": {
+    "date": "2026-10-12",
+    "recordGroups": ["X37", "X38", "X39"],
+    "method": "同一题目由两个提示词版本分别作答，匿名化版本标签后评分，评分落盘后再揭盲。",
+    "samplesPerVersion": 58,
+    "totalOutputs": 116,
+    "sampleCompositionPerVersion": {
+      "X37": 12,
+      "X38": 31,
+      "X39": 15
+    },
+    "results": [
+      { "version": "v2.4", "hardFailures": 6 },
+      { "version": "v2.5", "hardFailures": 2 }
+    ],
+    "countingRule": "硬失败按该批预设的答题要求与事实边界判定，不等同于事实编造。X37 动机题的 minor 评价不纳入硬失败计数。",
+    "conclusion": "在这组固定题集上，新提示词的硬失败次数较少，为采用更新提供了有限样本证据。",
+    "limitations": [
+      "每题每版本只运行一次，未进行重复试验或统计显著性检验。",
+      "技术套件的 41 道题未覆盖。",
+      "两版仍存在共有问题，结果不能推广为普遍准确率或真人使用收益。"
+    ],
+    "sourceRecordNames": [
+      "X37-20261012-01/Claude盲评结论.md",
+      "X38-20261012-01/Claude盲评结论.md",
+      "X39-20261012-01/Claude盲评结论.md"
+    ]
+  },
+  "reviewAgentComparison": {
+    "evaluationDates": ["2026-10-15", "2026-10-16"],
+    "reviewDate": "2026-10-16",
+    "recordGroup": "X44",
+    "method": "固定资料与题集，对旧单次核查、混合检索 Agent 和关键词检索 Agent 进行三组匿名盲评；评分完成后揭盲。",
+    "cases": 30,
+    "cleanDrafts": 12,
+    "draftsWithSeededErrors": 18,
+    "timing": {
+      "metric": "核查总耗时中位数",
+      "unit": "seconds",
+      "warmupsExcluded": true,
+      "groups": [
+        { "group": "A", "method": "旧单次核查", "median": 6.5 },
+        { "group": "B", "method": "核查 Agent + 混合检索", "median": 12.0 },
+        { "group": "C", "method": "核查 Agent + 关键词检索", "median": 9.2 }
+      ]
+    },
+    "conclusion": "在当前资料和题集上，未观察到检索 Agent 的质量收益，核查耗时中位数更高。评测结论建议继续保留旧核查基线，将 Agent 方案保留为实验能力。",
+    "limitations": [
+      "小样本人工植错实验，每题每方案仅取本次的一次正式结果，不能据此断言某类架构普遍更优。",
+      "旧核查在这组植错题上已达到满分，存在天花板效应；资料也能完整放入上下文。",
+      "上述耗时是核查阶段耗时，不是首答延迟，也不是语音结束到界面出字的时间。"
+    ],
+    "sourceRecordNames": [
+      "X44-20261015-01/Claude盲评结论.md",
+      "X44-20261015-01/X44交付记录.md"
+    ]
+  },
+  "sourceNote": "sourceRecordNames 仅标识已核对的本机来源文档，不是公开下载路径或链接。原始题目、回答、个人资料与运行细节未包含在此摘要中。"
+}

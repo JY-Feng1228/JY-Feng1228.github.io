@@ -8,4 +8,6 @@
 
 2026-10-16 更新：近期工具迭代前置，补充断网恢复、截图与手机只读显示、提示词盲评及核查 Agent 对照实验；论文协作详情支持展开阅读。10 月评测公开摘要见 `evidence/interview-copilot-202610.json`，不包含私人题目和原始回答。9 月代码与测试材料保留为历史快照。
 
+2026-10-17 更新：补充核查 Agent（LangChain.js、Function Calling、混合检索）的真实源码节选 `evidence/interview-copilot-review-agent.md`；完整代码在私有仓库的独立分支，默认不启用。
+
 视觉与交互参考 [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) 和 [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md)，沿用纯 HTML/CSS/JS，没有增加运行依赖。

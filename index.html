@@ -81,7 +81,7 @@
       </div>
     </div>
     <div class="decision-note"><div><p class="work-label">最新实验 · 2026.10.16</p><h4>更复杂的核查，没有自动带来更好的结果。</h4><p>将单次核查与两种检索 Agent 做三组对照。30 条人工构造草稿中未观察到质量收益，混合检索的核查耗时中位数从 6.5 秒增加到 12.0 秒。当前证据支持保留原核查方案。</p><p class="source-note">12 条干净草稿 + 18 条人工植错；小样本且存在天花板效应。核查耗时不是首答延迟。</p></div><button class="text-link" data-evidence="october-decisions">阅读实验与取舍</button></div>
-    <div class="project-bottom deliverable-links"><a class="text-link" href="evidence/interview-copilot-202610.json" target="_blank" rel="noopener">查看 10 月评测摘要</a><button class="text-link" data-evidence="copilot-code">9 月代码对照</button><button class="text-link" data-evidence="copilot-proof">9 月测试记录</button></div>
+    <div class="project-bottom deliverable-links"><a class="text-link" href="evidence/interview-copilot-202610.json" target="_blank" rel="noopener">查看 10 月评测摘要</a><a class="text-link" href="evidence/interview-copilot-review-agent.md" target="_blank" rel="noopener">10 月 Agent 代码节选</a><button class="text-link" data-evidence="copilot-code">9 月代码对照</button><button class="text-link" data-evidence="copilot-proof">9 月测试记录</button></div>
     <p class="attribution">基于 ericwang915/interview-copilot（MIT）持续迭代；上游提供基础框架、转写与多模型能力。我的工具用于练习、复盘和实时参考，实际表达由本人完成。生成稿与核查结果仍可能出错。</p>
   </article>
 </section>
@@ -192,6 +192,8 @@
 <h3>检索核查 Agent：当前没有采用依据</h3><p>以 12 条干净草稿和 18 条人工植错草稿，对单次核查、混合检索 Agent、关键词检索 Agent 做三组盲评。旧核查在该题集已修正 18/18 条植错，存在天花板效应；新增检索未显示质量收益。</p>
 <table><caption>核查总时延中位数，不是首答延迟</caption><thead><tr><th>方案</th><th>中位时延</th></tr></thead><tbody><tr><td>单次核查</td><td>6.5 秒</td></tr><tr><td>混合检索 Agent</td><td>12.0 秒</td></tr><tr><td>关键词检索 Agent</td><td>9.2 秒</td></tr></tbody></table>
 <p>评测支持保留原核查方案。30 条小样本不足以证明 Agent 普遍无效；资料超出上下文容量或更难的跨文档问题，需要另设实验。</p>
+<p>实现：LangChain.js 定义 <code>search_materials</code>（Embedding 向量 + 关键词，RRF 融合）与 <code>calculate</code> 两个 Function Calling 工具，手写循环最多两轮工具调用。代码保留在独立分支、默认关闭；仓库为私有，下方提供真实源码节选，面试时可现场打开完整分支。</p>
+<a class="text-link" href="evidence/interview-copilot-review-agent.md" target="_blank" rel="noopener">查看 Agent 代码节选 ↗</a>
 <h3>按题检索：首字更快，也可能丢掉重要资料</h3><p>一轮速度测试中，首字中位数从 1.284 秒降至 1.007 秒；另一轮 39 题、每题各 3 次的盲评中，检索版首答硬失败 26 次，全量资料版 5 次。两轮分别检查速度和质量，最终保留全量资料为默认。</p>
 <h3>中间转写提前请求：没有观察到提速</h3><p>同一录音的 60 分钟复测中，21 次预请求全部取消、复用为 0，回答 HTTP 调用由 24 次增加至 44 次，因此关闭该策略的默认开关。这是跨时段对照，不能将全部差异归因于代码。</p>
 <a class="text-link" href="evidence/interview-copilot-202610.json" target="_blank" rel="noopener">查看 10 月评测摘要</a>

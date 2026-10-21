@@ -10,4 +10,6 @@
 
 2026-10-17 更新：补充核查 Agent（LangChain.js、Function Calling、混合检索）的真实源码节选 `evidence/interview-copilot-review-agent.md`；完整代码在私有仓库的独立分支，默认不启用。
 
+2026-10-22 更新：面试助手定位为面试准备、模拟面试与复盘，新增推理路由、安全加固及公开版 1.2.1 案例；更新手机与截图的本人实测状态。下旬重放与发行验证摘要见 `evidence/interview-copilot-202610-late.json`，保留小样本与验证边界，不含个人资料或原始回答。
+
 视觉与交互参考 [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) 和 [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md)，沿用纯 HTML/CSS/JS，没有增加运行依赖。

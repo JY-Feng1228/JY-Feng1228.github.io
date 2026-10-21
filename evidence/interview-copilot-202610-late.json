@@ -1,0 +1,172 @@
+{
+  "title": "面试助手：2026 年 10 月下旬重放与发行验证摘要",
+  "checkedAt": "2026-10-22",
+  "scope": "核对已保存的交付记录后整理的公开摘要，不是完整原始评测集。工具用于面试准备、模拟面试和复盘，帮助练习表达与查漏补缺。真实面试前先确认对方允许使用辅助工具。",
+  "roles": {
+    "owner": "确定需求、目标、优先级和采用方案的取舍，并反馈实际使用结果",
+    "Codex": "完成大部分代码与测试，复核改动并执行重放和发行验证",
+    "Claude": "负责评审与盲评，并直接编写本阶段的核查去重、控制标记容错和推理路由等改动"
+  },
+  "routingReplay": {
+    "date": "2026-10-21",
+    "method": "使用合成题目，在独立桌面评测进程中复用应用生成与核查链路进行真实模型重放；每条完成核查后再开始下一条。",
+    "initialReplay": {
+      "totalCases": 18,
+      "generationCases": 16,
+      "reviewOnlyCases": 2,
+      "routingMatches": 16,
+      "routingChecked": 16,
+      "categories": [
+        {
+          "category": "口头回答：项目承接与切换、概念和行为题",
+          "count": 10,
+          "expectedRoute": "SPOKEN",
+          "actualRoute": "SPOKEN",
+          "firstVisibleTextSeconds": { "min": 2.020, "max": 3.361 },
+          "generationDurationSeconds": { "min": 3.104, "max": 6.659 }
+        },
+        {
+          "category": "多步推导：逻辑、数学和带约束的设计题",
+          "count": 4,
+          "expectedRoute": "REASONED",
+          "actualRoute": "REASONED",
+          "firstVisibleTextSeconds": { "min": 5.457, "max": 24.711 },
+          "generationDurationSeconds": { "min": 7.121, "max": 30.550 }
+        },
+        {
+          "category": "代码生成：SQL 与 Python",
+          "count": 2,
+          "expectedRoute": "CODE",
+          "actualRoute": "CODE",
+          "firstVisibleTextSeconds": { "min": 7.300, "max": 8.090 },
+          "generationDurationSeconds": { "min": 7.898, "max": 9.383 }
+        },
+        {
+          "category": "已有草稿的核查改写复验",
+          "count": 2,
+          "expectedRoute": "REVIEW_ONLY",
+          "actualRoute": "REVIEW_ONLY",
+          "firstVisibleTextSeconds": null,
+          "generationDurationSeconds": null
+        }
+      ],
+      "conclusion": "16 条生成的题型路由全部符合预期；另外 2 条只有核查阶段。路由正确不等于答案全部正确：本轮仍发现代码输出粒度和计算器能力问题，也保留了未完整核查的结果。"
+    },
+    "targetedRetest": {
+      "date": "2026-10-21",
+      "generationCases": 2,
+      "attemptsPerCase": 1,
+      "cases": [
+        {
+          "category": "数学推导",
+          "count": 1,
+          "expectedRoute": "REASONED",
+          "actualRoute": "REASONED",
+          "firstVisibleTextSeconds": { "min": 14.087, "max": 14.087 },
+          "generationDurationSeconds": { "min": 16.944, "max": 16.944 },
+          "result": "补充对数计算支持后，初答数值计算通过，未依赖核查修补数值。"
+        },
+        {
+          "category": "SQL 代码生成",
+          "count": 1,
+          "expectedRoute": "CODE",
+          "actualRoute": "CODE",
+          "firstVisibleTextSeconds": { "min": 14.971, "max": 14.971 },
+          "generationDurationSeconds": { "min": 17.542, "max": 17.542 },
+          "result": "模型核查提出了正确的去重修改，但应用处理改写时误删代码行，本次补测未通过；随后通过离线重放定位并修复。"
+        }
+      ],
+      "separationNote": "这 2 条是修改后的定向补测，不并入初始 18 条的样本数或时延区间。"
+    },
+    "timingDefinition": {
+      "firstVisibleText": "从调用生成引擎到首次可见正文回调，包含题型路由与高推理等待；不含语音采集、自动触发等待、此前的本地原文定位或界面绘制。",
+      "generationDuration": "从调用生成引擎到生成结束，不含后续核查耗时。",
+      "reviewOnly": "只有核查阶段的条目没有生成首字和生成总时长，使用 null 表示不适用。"
+    },
+    "routingBehavior": [
+      "多步推导题和代码题转入高推理，概念和行为题保留快速口头回答路线。",
+      "代码题取消 8 秒简短思路替代和 90 秒生成截止，等待完整答案。"
+    ],
+    "limitations": [
+      "小样本、合成题目，每条在对应阶段仅执行一次，不代表真人面试效果或普遍正确率。",
+      "初始重放和针对性补测必须分开解释，不能把补测时延写成初始代码题区间。",
+      "本次逐题等待核查完成，不代表生成与核查并发时的时延。",
+      "系统设计题仅核对给定假设与时间分配的合理性，没有真实系统压测。"
+    ]
+  },
+  "fixes": [
+    {
+      "finding": "SQL 对同一用户的多个合格记录段可能返回重复用户，原核查漏检输出粒度。",
+      "change": "在代码与核查规则中明确检查期望输出粒度及重复行。"
+    },
+    {
+      "finding": "应用的改写去重复逻辑把代码块中相似但必要的语句误删。",
+      "change": "代码块内不再执行面向自然语言的去重复处理，保留必要代码行。",
+      "verification": {
+        "method": "对已保存的原答与原始修改建议进行离线重放，并执行合成 SQL 场景",
+        "tests": 7,
+        "passed": 7,
+        "failed": 0,
+        "scope": "使用等价日期算术在 SQLite 中验证，未在原 PostgreSQL 环境执行；最终修复后未重新调用模型。"
+      }
+    },
+    {
+      "finding": "计算器缺少对数函数，模型构造的替代表达式触发中间值保护上限。",
+      "change": "白名单补充 ln、log10 和 exp，保留定义域、参数数量和数值上限检查。",
+      "verification": "单元测试与一次针对性真实模型补测通过。"
+    }
+  ],
+  "securityHardening": {
+    "dates": ["2026-10-21", "2026-10-22"],
+    "changes": [
+      "服务 Key 使用系统安全存储加密落盘；Windows 使用 DPAPI，设置页只显示已配置状态与末四位，不回填完整 Key。",
+      "业务 IPC 校验发送窗口、主框架、固定页面和参数；主窗口与截图窗口启用沙箱、上下文隔离并禁用 Node 集成，拒绝页面导航和新窗口。",
+      "手机显示只监听使用者所选的本机网络地址，校验 Host 与存在的 Origin，并对请求和未授权访问限流。",
+      "所选网络地址失效时撤销配对令牌并关闭服务，恢复后需要手动开启和重新配对，不自动改绑其他网卡。",
+      "Public 版使用独立数据目录、离线设备授权和使用者自备服务 Key；结束时默认不保存问答。"
+    ],
+    "limitations": [
+      "DPAPI 主要降低设置文件被复制后的泄露风险，不防御已被控制的电脑或当前用户下的恶意进程；系统加密不可用会提示，旧明文备份也需要妥善保管。",
+      "手机显示仍是明文局域网 HTTP，仅限可信 Wi-Fi；令牌失效不能擦除对端已复制或截图的内容。",
+      "网络失效检测基于地址检查，不是完整的 Wi-Fi 名称变化监测，不能保证检测到所有瞬时断网。"
+    ]
+  },
+  "releaseValidation": {
+    "date": "2026-10-22",
+    "version": "1.2.1",
+    "edition": "Public",
+    "platform": "Windows x64",
+    "distribution": "已构建并本地交付 NSIS 安装包；需要离线设备授权，使用者自备服务 Key。没有在此摘要提供安装包下载入口。",
+    "codeSigned": false,
+    "publicDownloadPublished": false,
+    "regression": {
+      "scope": "当前应用源码仓库的最终全量测试",
+      "tests": 572,
+      "passed": 572,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "lint": "passed",
+      "formatCheck": "passed"
+    },
+    "packageChecks": [
+      "从安装包解出实际载荷并启动发行 EXE，核对包内源码与构建时源码一致。",
+      "在全新隔离数据目录中使用合成授权与假 Key 验证授权入口、首次引导、密文保存和设置页面。",
+      "公开版默认不询问保存；注入一轮合成已完成问答后，实际点击结束会丢弃记录，不生成问答文件。",
+      "发行冒烟中禁用业务网络、模型与媒体入口，并核对没有触发这些调用。"
+    ],
+    "limitations": [
+      "验证方式是解包后启动实际发行程序，未运行安装向导或静默安装，未验证升级和卸载。",
+      "合成授权和假 Key 不替代真实发行方授权、真实设备绑定或真实服务调用验证。",
+      "发行冒烟未验证真实音频、模型、题图识别或长期会话；题图识别质量没有系统评测。",
+      "安装包未代码签名，尚未上传公开下载渠道。"
+    ]
+  },
+  "sources": [
+    { "type": "推理路由重放与定向修复交付记录", "date": "2026-10-21" },
+    { "type": "凭据、IPC 与窗口安全加固交付记录", "date": "2026-10-21" },
+    { "type": "手机显示加固与公开版准备交付记录", "dates": ["2026-10-21", "2026-10-22"] },
+    { "type": "公开版保存设置与发行程序验证交付记录", "date": "2026-10-22" }
+  ],
+  "sourceNote": "来源仅以文档类型和日期说明。此文件保留汇总数字、工程改动与验证边界，不包含原始题目、回答正文、个人资料、内部任务标识或运行凭据。"
+}

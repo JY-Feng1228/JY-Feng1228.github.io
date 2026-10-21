@@ -6,7 +6,7 @@
   <meta name="description" content="蒋亦枫的个人网页：计算机科学与数据分析背景，展示电力预测研究、个人工具迭代、AI 协作与实习经历。更新于 2026 年 10 月。">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232944dc'/%3E%3Cpath d='M18 16l14 19 14-19M32 35v15' stroke='white' stroke-width='7' fill='none'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20261016">
+  <link rel="stylesheet" href="styles.css?v=20261022">
 </head>
 <body>
 <a class="skip-link" href="#main">跳转到内容</a>
@@ -28,7 +28,7 @@
   <aside class="hero-feature portfolio-index" aria-label="项目导览">
     <p class="index-label">最近在做</p>
     <h2 class="index-heading">让个人工具，<br>经得起反复使用。</h2>
-    <a href="#copilot"><div><h3>面试助手的持续迭代</h3><p>从上下文隔离，走到断网恢复、跨屏显示与盲评取舍。</p></div><span aria-hidden="true">↗</span></a>
+    <a href="#copilot"><div><h3>面试助手的持续迭代</h3><p>从上下文隔离、断网恢复，到推导路由与安全加固。</p></div><span aria-hidden="true">↗</span></a>
     <a href="#energy"><div><h3>用文本辅助电力预测</h3><p>保留成功与失败的对照，明确模型的适用范围。</p></div><span aria-hidden="true">↗</span></a>
     <a href="#practice"><div><h3>其他工具与协作实践</h3><p>清理工具、查询原型，以及可复用的 AI 工作方式。</p></div><span aria-hidden="true">↗</span></a>
   </aside>
@@ -36,22 +36,42 @@
 <section class="wrap tools-section" id="tools">
   <div class="section-heading"><div><p class="section-kicker">近期实践</p><h2>从能用，到持续验证。</h2></div><p>2026 年 9—10 月持续迭代</p></div>
   <article class="copilot-project" id="copilot">
-    <div class="copilot-heading"><div><p class="project-meta">基于开源的个人工具</p><h3>interview-copilot<br>把真实使用问题，变成下一次改进。</h3></div><p>最初解决资料与岗位混用，之后继续处理断网漏题、图像输入和回答质量。每次增加功能，都回到同一个问题：它是否真的改善了使用？</p></div>
+    <div class="copilot-heading"><div><p class="project-meta">面试准备、模拟面试与复盘助手</p><h3>interview-copilot<br>把真实使用问题，变成下一次改进。</h3></div><p>用来练习表达、查漏补缺。从实时转写与回答核查，到按题型选择推理强度、安全加固和发行验证，每次改进都回到具体使用问题。</p></div>
     <ol class="iteration-path" aria-label="迭代过程">
       <li><time datetime="2026-09">9 月</time><strong>资料与对话</strong><span>岗位隔离、草稿来源、问答归档</span></li>
       <li><time datetime="2026-10-10">10.10</time><strong>链路恢复</strong><span>断网缓存、重连与顺序补发</span></li>
       <li><time datetime="2026-10-12">10.12</time><strong>盲评选版</strong><span>隐藏版本后评分，再决定采用</span></li>
       <li><time datetime="2026-10-15">10.15</time><strong>跨屏与核查实验</strong><span>手机显示、截图、Agent 对照</span></li>
+      <li><time datetime="2026-10-21">10.21</time><strong>正确性优先</strong><span>推导与代码题走高推理，概念题保持快速口答</span></li>
+      <li><time datetime="2026-10-22">10.22</time><strong>给别人用之前</strong><span>Key 加密、IPC 加固、公开版 1.2.1</span></li>
     </ol>
-    <p class="contribution-line"><strong>我的参与</strong> 提出真实使用问题，确定目标、优先级和采用取舍；Codex 完成代码与测试，Claude 参与评审和盲评。</p>
+    <p class="contribution-line"><strong>我的参与</strong> 确定需求、目标、优先级与取舍；Codex 完成大部分代码与测试；Claude 负责评审、盲评，并编写了 10 月下旬的核查去重、控制标记容错与推理路由，Codex 再复核和重放验证。</p>
     <div class="copilot-body">
       <div class="case-tabs" role="tablist" aria-label="面试助手近期案例" aria-orientation="vertical">
-        <button id="tab-quality" role="tab" aria-selected="true" aria-controls="panel-quality" tabindex="0">用盲评选择版本<span>看内容质量，再决定是否采用</span></button>
+        <button id="tab-reasoning" role="tab" aria-selected="true" aria-controls="panel-reasoning" tabindex="0">先想清楚再答<span>多步推导与代码题，正确性优先</span></button>
+        <button id="tab-release" role="tab" aria-selected="false" aria-controls="panel-release" tabindex="-1">给别人用之前<span>安全加固、数据隔离与发行验证</span></button>
+        <button id="tab-quality" role="tab" aria-selected="false" aria-controls="panel-quality" tabindex="-1">用盲评选择版本<span>看内容质量，再决定是否采用</span></button>
         <button id="tab-recovery" role="tab" aria-selected="false" aria-controls="panel-recovery" tabindex="-1">断网之后补回问题<span>缓存有上限，恢复有记录</span></button>
         <button id="tab-mobile" role="tab" aria-selected="false" aria-controls="panel-mobile" tabindex="-1">从截图到另一块屏幕<span>补充输入与只读查看入口</span></button>
         <button id="tab-context" role="tab" aria-selected="false" aria-controls="panel-context" tabindex="-1">让事实和上下文各归其位<span>保留最初迭代的核心边界</span></button>
       </div>
-      <div class="tab-panel" id="panel-quality" role="tabpanel" aria-labelledby="tab-quality" tabindex="0">
+      <div class="tab-panel" id="panel-reasoning" role="tabpanel" aria-labelledby="tab-reasoning" tabindex="0">
+        <p class="panel-type">真实模型重放 · 2026.10.21</p><h4>需要多步推导时，给模型完整思考的时间。</h4>
+        <p>自动识别计算、逻辑、算法和带约束的设计题，转入高推理；概念与行为题保持快速口答。代码题移除 8 秒简短思路回退和 90 秒截止，等待完整答案。</p>
+        <div class="behavior-flow"><span>识别本轮题型</span><b aria-hidden="true">↓</b><span>概念 / 行为：快速口答</span><span class="flow-result">多步推导 / 代码：高推理完整作答</span></div>
+        <p>18 条初始重放中，16 条生成的题型判断全部符合预期，另 2 条只做核查。初始与定向补测中，首字约为：口答 2.0–3.4 秒、推导 5–25 秒、代码 7–15 秒。</p>
+        <p class="panel-insight">重放也暴露了 SQL 输出粒度、修正时误删代码行和计算器缺少对数函数的问题，随后分别修复。小样本合成题，每题每轮 1 次；路由正确不等于内容全部正确，也不代表真人面试效果。</p>
+        <button class="text-link" data-evidence="late-reasoning">查看重放结果与修复过程</button>
+      </div>
+      <div class="tab-panel" id="panel-release" role="tabpanel" aria-labelledby="tab-release" tabindex="0" hidden>
+        <p class="panel-type">安全加固 + 发行 · 2026.10.21–22</p><h4>把个人工具交给别人前，先收紧边界。</h4>
+        <p>API Key 通过 Windows DPAPI 加密存储，界面只显示“已配置 / 末四位”。所有 IPC 校验发送窗口、页面和参数；窗口启用沙箱，禁止导航和新窗。</p>
+        <p>手机显示只绑定所选网络，增加 Host 校验与限流；检测到所选网络地址失效后自动关闭，恢复后需重新配对。</p>
+        <p>公开版 1.2.1 使用独立数据目录与离线设备授权，使用者自备 Key，结束时默认不保存问答。最终记录为 572 项离线测试通过，并完成实际发行 EXE 的隔离验证。</p>
+        <p class="panel-insight">DPAPI 主要防设置文件被拷走，不能防已被控制的电脑。手机显示仍为明文局域网，仅用于可信 Wi-Fi；安装包未代码签名。</p>
+        <button class="text-link" data-evidence="late-release">查看安全清单与发行验证</button>
+      </div>
+      <div class="tab-panel" id="panel-quality" role="tabpanel" aria-labelledby="tab-quality" tabindex="0" hidden>
         <p class="panel-type">固定题集盲评 · 2026.10</p><h4>先隐藏版本，再看答案。</h4>
         <p>同一题目分别生成两个版本的回答，打乱顺序、隐藏版本信息后评分，再揭盲决定是否采用。评价关注事实依据、明确要求和回答是否有实质内容。</p>
         <div class="comparison-result" aria-label="每版58份结果，旧版6次硬失败，新版2次"><div><span>旧提示词 v2.4</span><strong>6 <small>次硬失败</small></strong></div><span class="comparison-arrow" aria-hidden="true">→</span><div><span>新提示词 v2.5</span><strong>2 <small>次硬失败</small></strong></div></div>
@@ -66,10 +86,10 @@
         <button class="text-link" data-evidence="october-reliability">查看恢复记录与边界</button>
       </div>
       <div class="tab-panel" id="panel-mobile" role="tabpanel" aria-labelledby="tab-mobile" tabindex="0" hidden>
-        <p class="panel-type">已实现 · 本机合成验收</p><h4>输入留在电脑，查看可以换一块屏幕。</h4>
-        <p>新增截图与粘贴图片入口；通过局域网的手机只读页面，同步当前问题、流式回答和核查状态。每次开启使用新临时链接，关闭后失效。</p>
+        <p class="panel-type">本人实测通过 · 2026.10.21</p><h4>练习时，换一块屏幕查看回答。</h4>
+        <p>支持截图与粘贴图片，通过手机只读页面查看当前问题、流式回答和核查状态。只绑定所选网络，校验 Host 并限流；每次开启使用新临时链接，网络地址失效后自动关闭。</p>
         <div class="device-route" aria-label="功能示意，不是真实设备截图"><div><span>电脑端</span><strong>问题与生成</strong><p>文字、语音、题图</p></div><span aria-hidden="true">→</span><div><span>手机端</span><strong>只读查看</strong><p>当前回答与核查状态</p></div></div>
-        <p class="panel-insight">已完成真实 Electron 和本机服务的合成测试。真实手机扫码、家庭网络，以及真实题图识别质量尚未完成验收。</p>
+        <p class="panel-insight">10 月 21 日，本人实测通过手机扫码、断网后自动关闭与重新配对，以及 F8 截取真实屏幕题目作答。题图识别质量尚未系统评测；手机显示仍限可信 Wi-Fi。</p>
         <button class="text-link" data-evidence="october-input">查看实现与验证范围</button>
       </div>
       <div class="tab-panel" id="panel-context" role="tabpanel" aria-labelledby="tab-context" tabindex="0" hidden>
@@ -80,9 +100,9 @@
         <button class="text-link" data-evidence="copilot-decision">阅读最初的需求与取舍</button>
       </div>
     </div>
-    <div class="decision-note"><div><p class="work-label">最新实验 · 2026.10.16</p><h4>更复杂的核查，没有自动带来更好的结果。</h4><p>将单次核查与两种检索 Agent 做三组对照。30 条人工构造草稿中未观察到质量收益，混合检索的核查耗时中位数从 6.5 秒增加到 12.0 秒。当前证据支持保留原核查方案。</p><p class="source-note">12 条干净草稿 + 18 条人工植错；小样本且存在天花板效应。核查耗时不是首答延迟。</p></div><button class="text-link" data-evidence="october-decisions">阅读实验与取舍</button></div>
-    <div class="project-bottom deliverable-links"><a class="text-link" href="evidence/interview-copilot-202610.json" target="_blank" rel="noopener">查看 10 月评测摘要</a><a class="text-link" href="evidence/interview-copilot-review-agent.md" target="_blank" rel="noopener">10 月 Agent 代码节选</a><button class="text-link" data-evidence="copilot-code">9 月代码对照</button><button class="text-link" data-evidence="copilot-proof">9 月测试记录</button></div>
-    <p class="attribution">基于 ericwang915/interview-copilot（MIT）持续迭代；上游提供基础框架、转写与多模型能力。我的工具用于练习、复盘和实时参考，实际表达由本人完成。生成稿与核查结果仍可能出错。</p>
+    <div class="decision-note"><div><p class="work-label">阶段实验 · 2026.10.16</p><h4>更复杂的核查，没有自动带来更好的结果。</h4><p>将单次核查与两种检索 Agent 做三组对照。30 条人工构造草稿中未观察到质量收益，混合检索的核查耗时中位数从 6.5 秒增加到 12.0 秒。当前证据支持保留原核查方案。</p><p class="source-note">12 条干净草稿 + 18 条人工植错；小样本且存在天花板效应。核查耗时不是首答延迟。</p></div><button class="text-link" data-evidence="october-decisions">阅读实验与取舍</button></div>
+    <div class="project-bottom deliverable-links"><a class="text-link" href="evidence/interview-copilot-202610-late.json" target="_blank" rel="noopener">10 月下旬重放摘要</a><a class="text-link" href="evidence/interview-copilot-202610.json" target="_blank" rel="noopener">查看 10 月评测摘要</a><a class="text-link" href="evidence/interview-copilot-review-agent.md" target="_blank" rel="noopener">10 月 Agent 代码节选</a><button class="text-link" data-evidence="copilot-code">9 月代码对照</button><button class="text-link" data-evidence="copilot-proof">9 月测试记录</button></div>
+    <p class="attribution">基于 ericwang915/interview-copilot（MIT）持续迭代；上游提供基础框架、转写与多模型能力。用于面试准备、模拟面试和复盘，帮助练习表达、查漏补缺；真实经历与实际表达由本人负责。真实面试前先确认对方允许使用辅助工具。生成稿与核查结果仍可能出错。</p>
   </article>
 </section>
 <section class="work wrap" id="work"><div class="section-heading"><div><p class="section-kicker">精选作品</p><h2>论文研究：判断模型的能力边界。</h2></div><p>硕士个人论文 · 2026</p></div>
@@ -166,6 +186,24 @@
       items.map((item, i) =&gt; `${i === items.length - 1 ? &#x27;最近一次草稿&#x27; : `较早草稿${i + 1}`}对应问题：${item.question}\n草稿正文：${item.text}`).join(&#x27;\n\n&#x27;);
   }</code></pre><p><a class="text-link" href="evidence/interview-copilot-code.md" download>下载代码与完整 MIT 许可证 ↓</a></p><p class="proof-source">Copyright (c) 2026 ericwang915 · <a href="evidence/LICENSE-interview-copilot.txt" target="_blank" rel="noopener">MIT License</a>。代码依赖原应用上下文，不是独立运行包。</p></template>
 
+<template id="late-reasoning" data-title="先想清楚再答：路由、时延与修复">
+<p class="proof-source">2026-10-21 真实模型重放及定向复验；仅公开汇总，不包含个人资料或回答正文。</p>
+<h3>题型判断与答案正确性分别检查</h3><p>18 条初始重放包括 16 条生成和 2 条仅核查。16 条生成分别为快速口答 10 条、多步推导 4 条、代码 2 条，预期与实际路由全部一致。推导与代码题各转入一次高推理请求；代码不再使用 8 秒简短思路回退或 90 秒截止。</p>
+<table><caption>初始重放：首字 / 生成完成区间（秒）</caption><thead><tr><th>类别与数量</th><th>首字</th><th>生成完成</th></tr></thead><tbody><tr><td>快速口答 · 10 条</td><td>2.020–3.361</td><td>3.104–6.659</td></tr><tr><td>多步推导 · 4 条</td><td>5.457–24.711</td><td>7.121–30.550</td></tr><tr><td>代码 · 2 条</td><td>7.300–8.090</td><td>7.898–9.383</td></tr></tbody></table>
+<p>计时从生成入口开始，包含题型路由和高推理等待，不含语音采集、自动触发等待及界面绘制；生成完成时间不含后续核查。仅核查的 2 条不纳入这张时延表。</p>
+<h3>重放发现的问题，怎样修复</h3><ul><li><strong>SQL 输出粒度：</strong>同一用户可能被重复返回。核查规则补充输出粒度检查；修正应用时又发现代码行被当作重复句删除，改为代码块内不做去重。最终对原始修订离线重放，7/7 个场景通过。</li><li><strong>数值计算：</strong>翻倍题缺少简洁的对数支持，补充 ln、log10、exp。定向复验中计算完成，不再依赖核查修补数值。</li></ul>
+<p>两条定向模型补测单独记录：数学题首字 / 生成完成为 14.087 / 16.944 秒；SQL 为 14.971 / 17.542 秒。SQL 补测暴露了误删代码行的问题，最后修复用离线重放验证，没有再次调用模型。</p>
+<h3>验证边界</h3><p>小样本合成题，每题每轮只运行一次；定向补测不算独立留出集。16/16 路由正确不代表 18 条内容全部正确，核查仍出现过范围未完整确认的结果。SQL 用等价日期算术在 SQLite 核对，未在原 PostgreSQL 环境执行；不代表真人面试效果。</p>
+<a class="text-link" href="evidence/interview-copilot-202610-late.json" target="_blank" rel="noopener">查看 10 月下旬重放摘要</a>
+</template>
+<template id="late-release" data-title="给别人用之前：安全加固与公开版 1.2.1">
+<p class="proof-source">2026-10-21 至 10-22 的实现、离线测试与发行包隔离验证记录。</p>
+<h3>凭据、窗口和网络</h3><ul><li>API Key 由系统安全存储加密，Windows 使用 DPAPI；设置界面只返回已配置状态与末四位，不回显完整 Key。</li><li>所有 IPC 校验发送窗口、页面及参数；窗口启用沙箱与上下文隔离，禁止导航和新开窗口。</li><li>手机显示只绑定所选网络地址，校验 Host 并限流；地址失效时关闭，恢复后重新配对。</li></ul>
+<h3>交付方式</h3><p>公开版 1.2.1 为 Windows x64 安装包，使用独立数据目录、离线设备授权，使用者自备 Key。结束时默认不保存问答；需要时可主动开启保存询问。未在这里提供安装包下载入口。</p>
+<h3>已完成的验证</h3><p>最终 572 项离线测试全部通过。从新安装包解出真实发行 EXE，在独立目录中用合成授权、假 Key 与合成问答检查首次引导、加密保存及结束时不保存；验证时未启用业务网络、模型或媒体采集。</p>
+<h3>不扩大验证结论</h3><p>DPAPI 主要保护被拷走的设置文件，不能抵御已被控制的电脑或同一用户下的恶意进程。手机显示仍为明文局域网，只用于可信 Wi-Fi。安装包未代码签名；尚未完成完整安装 / 卸载、真实设备授权和公开版长会话验证。个人版的本人实测与公开版的隔离验证分别记录。</p>
+<a class="text-link" href="evidence/interview-copilot-202610-late.json" target="_blank" rel="noopener">查看安全与发行摘要</a>
+</template>
 <template id="october-evaluation" data-title="10 月盲评：怎样决定采用一个版本">
 <p class="proof-source">核对记录：X37、X38、X39 · 2026-10-12；公开摘要不包含私人题目与原始回答。</p>
 <h3>先约定评价，再隐藏版本</h3><p>我确认评测目标和采用决策；Codex 运行评测、整理匿名包，Claude 在揭盲前评分。比较事实准确、无依据的编造、明确要求是否满足、自然度与实质内容。</p>
@@ -181,11 +219,12 @@
 <h3>长时测试保留的缺口</h3><p>后续 60 分钟测试记录过旧音频丢弃。断网约 20 秒不表示 20 秒内完成追赶；缓存上限、补发速度和持续新音频共同影响恢复。当前不宣称断网零丢失。</p>
 <p class="proof-source">对应实现：audio-replay.js 与 session-controller.js；本页只发布机制和汇总，不发布录音或原始问答。</p>
 </template>
-<template id="october-input" data-title="截图与手机显示：哪些已验证">
-<p class="proof-source">核对记录：项目 README、2026-10-13 至 10-14 的 Electron 合成验收记录。</p>
-<h3>新增的使用方式</h3><p>电脑端支持截图和粘贴图片，手机端通过同一可信局域网只读查看当前问题、流式回答与核查状态。每次开启生成新的临时链接，关闭后失效。桌面端可在托盘继续运行。</p>
-<h3>已经验证</h3><p>使用合成数据完成真实 Electron 与本机 HTTP/SSE 检查，包含 390 × 844 手机视口、最小化同步、刷新、关闭与链接失效。截图流程检查了重复触发、失败重试、结束会话隔离与热键占用提示。</p>
-<h3>还不能据此证明</h3><p>上述检查没有覆盖真实手机扫码、家庭局域网及防火墙，也没有实际按系统热键、截取真实桌面并调用模型。功能已实现，真实设备和题图识别质量仍需单独验收。</p>
+<template id="october-input" data-title="截图与手机显示：验证进展与使用边界">
+<p class="proof-source">核对记录：10 月合成验收、网络加固记录，以及本人于 2026-10-21 确认的真实使用反馈。</p>
+<h3>练习中的输入与跨屏查看</h3><p>电脑端支持截图和粘贴图片，手机端只读查看当前问题、流式回答与核查状态。每次开启生成新临时链接，关闭后失效；桌面端可在托盘继续运行。</p>
+<h3>新增的网络边界</h3><p>只绑定使用者选择的网络地址，校验 Host 并限制请求频率。所选地址失效后撤销链接并关闭服务，恢复后需手动开启、重新扫码；不会自动换绑其他网卡。</p>
+<h3>本人已完成的实测</h3><p>2026 年 10 月 21 日，本人确认真实手机扫码、断网后的自动关闭与重新配对、F8 截取真实屏幕题目作答均通过。此前也完成了 Electron 与本机服务的合成验证，覆盖刷新、链接失效、重复触发、失败重试与会话隔离。</p>
+<h3>仍需保留的边界</h3><p>实测属于本人设备和当次场景，题图识别质量尚未做系统评测，不能推广为所有网络或题目均可靠。地址失效依靠轮询与请求入口检测，休眠期间不能执行检查，也不保证发现所有瞬时断网。手机显示仍为明文 HTTP，仅用于可信 Wi-Fi。</p>
 </template>
 <template id="october-decisions" data-title="保留未采用的方案，说明为什么">
 <p class="proof-source">核对记录：X17/X21、X20、X44；结论限于对应测试设置。</p>

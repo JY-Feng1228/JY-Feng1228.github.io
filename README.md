@@ -15,3 +15,5 @@
 2026-10-24 更新：新增“按资料依据作答”案例（简历与项目材料分级、简历薄弱点、公开版 1.2.3），样本为虚构简历与项目报告，保留小样本与验证边界。
 
 视觉与交互参考 [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) 和 [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md)，沿用纯 HTML/CSS/JS，没有增加运行依赖。
+
+2026-11-01 更新：新增“模拟面试与逐题复盘”“混合资料加载与同音纠错”两个案例，公开摘要见 `evidence/interview-copilot-202611.json`，均为合成数据与只读核对，不含个人资料或回答正文。

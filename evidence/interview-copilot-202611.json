@@ -1,0 +1,68 @@
+{
+  "title": "面试助手：2026 年 11 月模拟面试、混合资料与同音纠错摘要",
+  "checkedAt": "2026-11-01",
+  "scope": "核对交付记录后整理的公开摘要，不含个人资料、真实题目或回答正文。工具用于面试准备、模拟面试和复盘；真实面试前先确认对方允许使用辅助工具。",
+  "roles": {
+    "owner": "提出需求、确定优先级与取舍",
+    "Claude": "拟定任务方案、编写界面代码、复核截图与评测",
+    "Codex": "实现后端、测试与评测，执行合并验证"
+  },
+  "mockInterview": {
+    "date": "2026-11-01",
+    "method": "单场合成语音，经离线合成音频送入实际采集链路与 OpenAI 实时转写；出题、参考答案、核查、存档使用实际后端链路。",
+    "mainQuestions": 3,
+    "checks": {
+      "readingMarkerInTranscript": false,
+      "midAnswerCompletionTailKeptInRound": "2/2",
+      "transcriptionCutOver9sAutoCompleted": false
+    },
+    "reviewLabelFix": "同一合成场次重新复盘，原误标为 missing 的一轮判为 drifted；兜底规则未触发。",
+    "offlineTestsAtMerge": 818,
+    "textCostUsdEstimate": 0.0097,
+    "limits": [
+      "单场合成会话",
+      "未测真实房间声学与朗读音质",
+      "复盘只看资料标题"
+    ]
+  },
+  "hybridMaterials": {
+    "background": "10 月纯检索对照：检索版硬失败 26 次，全量加载 5 次，未采用纯检索。",
+    "syntheticCorpusChars": 79178,
+    "fixedChars": 59562,
+    "questions": {
+      "retrievalOnly": {
+        "correct": 5,
+        "total": 5
+      },
+      "fixed": {
+        "correct": 3,
+        "total": 3
+      }
+    },
+    "realPrefixHashUnchanged": true,
+    "limits": [
+      "合成资料",
+      "按题检索不保证每题命中"
+    ]
+  },
+  "transcriptionCorrection": {
+    "positives": 72,
+    "negatives": 240,
+    "namingContextOnly": {
+      "recall": "16/72",
+      "falseCorrections": "0/240"
+    },
+    "interviewContexts": {
+      "recall": "64/72",
+      "falseCorrections": "0/240"
+    },
+    "limits": [
+      "虚构术语与模板句子",
+      "不代表线上误纠率",
+      "无明确语境的句子不自动改"
+    ]
+  },
+  "evaluationRequests": 9,
+  "evaluationCostUsdEstimate": 0.0093,
+  "offlineTestsAtMerge": 843
+}
